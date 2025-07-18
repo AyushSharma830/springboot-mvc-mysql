@@ -1,17 +1,13 @@
 package com.example.spring_6_mvc;
 
-import com.example.spring_6_mvc.controllers.BeerController;
-import com.example.spring_6_mvc.model.Beer;
+import com.example.spring_6_mvc.entities.Beer;
 import com.example.spring_6_mvc.repositories.BeerRepository;
-import org.hibernate.annotations.UuidGenerator;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.TransactionSystemException;
 
 import java.util.List;
-import java.util.UUID;
 
 import static org.springframework.web.client.RestClient.builder;
 

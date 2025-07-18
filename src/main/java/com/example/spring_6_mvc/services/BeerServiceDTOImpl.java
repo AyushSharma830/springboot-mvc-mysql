@@ -1,7 +1,7 @@
 package com.example.spring_6_mvc.services;
 
 import com.example.spring_6_mvc.mappers.BeerMapper;
-import com.example.spring_6_mvc.model.Beer;
+import com.example.spring_6_mvc.entities.Beer;
 import com.example.spring_6_mvc.model.BeerDTO;
 import com.example.spring_6_mvc.repositories.BeerRepository;
 import lombok.RequiredArgsConstructor;
@@ -11,11 +11,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicReference;
-import java.util.stream.Collectors;
 
 @Service
 @Primary

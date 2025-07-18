@@ -1,15 +1,12 @@
 package com.example.spring_6_mvc.bootstrap;
 
 import com.example.spring_6_mvc.mappers.BeerMapper;
-import com.example.spring_6_mvc.model.Beer;
+import com.example.spring_6_mvc.entities.Beer;
 import com.example.spring_6_mvc.model.BeerCSVRecord;
 import com.example.spring_6_mvc.repositories.BeerRepository;
 import com.example.spring_6_mvc.services.BeerCSVParser;
 import com.example.spring_6_mvc.services.BeerService;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ResourceUtils;
@@ -17,10 +14,6 @@ import org.springframework.util.ResourceUtils;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.List;
-import java.util.UUID;
-import java.util.stream.Collectors;
-
-import static java.util.stream.Collectors.toList;
 
 @Component
 @RequiredArgsConstructor
