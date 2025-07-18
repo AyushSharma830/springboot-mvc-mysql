@@ -56,4 +56,12 @@ public class Beer {
     @Builder.Default
     @OneToMany(mappedBy = "beer")
     private Set<BeerOrderLineItem> beerOrderLineItems = new HashSet<>(); //a single beer may be linked to multiple beer order line items so one to many from beer side for beer order line items
+
+    @Builder.Default
+    @ManyToMany
+//    @JoinTable(name = "beer_category",
+//            joinColumns = @JoinColumn(name = "beer_id"),
+//            inverseJoinColumns = @JoinColumn(name = "category_id")
+//    ) //we have to define this only on side otherwise it will try to duplicate entries in join table
+    private Set<Category> categories = new HashSet<>(); //consider case where each beer can have multiple categories and then a single category would also be related to multiple beers
 }
