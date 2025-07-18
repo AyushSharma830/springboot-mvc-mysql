@@ -1,11 +1,9 @@
 package com.example.spring_6_mvc.entities;
 
 import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.annotations.UpdateTimestamp;
-import org.hibernate.annotations.UuidGenerator;
+import org.hibernate.annotations.*;
 import org.hibernate.type.SqlTypes;
 
 import java.time.LocalDateTime;
@@ -21,13 +19,14 @@ import java.util.UUID;
 public class BeerOrder {
 
     //this is all args constructor to use setter for customer instead of direct assign
-    public BeerOrder(UUID id, Long version, LocalDateTime createdAt, LocalDateTime lastUpdatedAt, Customer customer, Set<BeerOrderLineItem> beerOrderLineItems) {
+    public BeerOrder(UUID id, Long version, LocalDateTime createdAt, LocalDateTime lastUpdatedAt, Customer customer, Set<BeerOrderLineItem> beerOrderLineItems, BeerOrderShipment beerOrderShipment) {
         this.id = id;
         this.version = version;
         this.createdAt = createdAt;
         this.lastUpdatedAt = lastUpdatedAt;
         this.setCustomer(customer);
         this.beerOrderLineItems = beerOrderLineItems;
+        this.setBeerOrderShipment(beerOrderShipment);
     }
 
     @Id
@@ -59,5 +58,14 @@ public class BeerOrder {
     public void setCustomer(Customer customer) {
         this.customer = customer;
         customer.getBeerOrders().add(this); //here make sure that beerOrders default is not null
+    }
+
+    //cascade - persists - ensures that child entity is is also ensured in db at parent entity creation in db
+    @OneToOne(cascade = CascadeType.PERSIST) //in one to one no side will be driving side both will store each others id
+    private BeerOrderShipment beerOrderShipment;
+
+    public void setBeerOrderShipment(BeerOrderShipment beerOrderShipment) {
+        this.beerOrderShipment = beerOrderShipment;
+        beerOrderShipment.setBeerOrder(this);
     }
 }

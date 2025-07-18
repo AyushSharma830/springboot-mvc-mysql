@@ -2,6 +2,7 @@ package com.example.spring_6_mvc.repositories;
 
 import com.example.spring_6_mvc.entities.Beer;
 import com.example.spring_6_mvc.entities.BeerOrder;
+import com.example.spring_6_mvc.entities.BeerOrderShipment;
 import com.example.spring_6_mvc.entities.Customer;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.BeforeEach;
@@ -42,6 +43,11 @@ class BeerOrderRepositoryTest {
     void testBeerOrderRelationship() {
         BeerOrder beerOrder = BeerOrder.builder()
                 .customer(testCustomer)
+                .beerOrderShipment( //bcz of cascade this will be created in db too
+                        BeerOrderShipment.builder()
+                                .trackingNumber("123")
+                                .build()
+                )
                 .build();
 
         //here when you see now after @Transaction annotation is that customer is lazy loaded in savedBeerOrder but that customer
