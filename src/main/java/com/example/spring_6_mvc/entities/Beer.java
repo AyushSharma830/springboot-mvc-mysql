@@ -1,9 +1,6 @@
 package com.example.spring_6_mvc.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -15,9 +12,12 @@ import org.hibernate.annotations.UuidGenerator;
 import org.hibernate.type.SqlTypes;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
-@Data
+@Getter
+@Setter
 @Builder
 @Entity
 @NoArgsConstructor
@@ -52,4 +52,8 @@ public class Beer {
 
     @UpdateTimestamp
     private LocalDateTime lastUpdatedAt;
+
+    @Builder.Default
+    @OneToMany(mappedBy = "beer")
+    private Set<BeerOrderLineItem> beerOrderLineItems = new HashSet<>(); //a single beer may be linked to multiple beer order line items so one to many from beer side for beer order line items
 }

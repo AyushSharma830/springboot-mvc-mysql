@@ -1,9 +1,11 @@
 package com.example.spring_6_mvc.bootstrap;
 
+import com.example.spring_6_mvc.entities.Customer;
 import com.example.spring_6_mvc.mappers.BeerMapper;
 import com.example.spring_6_mvc.entities.Beer;
 import com.example.spring_6_mvc.model.BeerCSVRecord;
 import com.example.spring_6_mvc.repositories.BeerRepository;
+import com.example.spring_6_mvc.repositories.CustomerRepository;
 import com.example.spring_6_mvc.services.BeerCSVParser;
 import com.example.spring_6_mvc.services.BeerService;
 import lombok.RequiredArgsConstructor;
@@ -22,10 +24,12 @@ public class BootstrapData implements CommandLineRunner {
     private final BeerService beerService;
     private final BeerMapper beerMapper;
     private final BeerCSVParser beerCSVParser;
+    private final CustomerRepository customerRepository;
 
     @Override
     public void run(String... args) throws Exception {
         beerRepository.deleteAll();
+        customerRepository.deleteAll();
 
         Beer b1 = Beer.builder()
                 .name("B1")
@@ -45,6 +49,13 @@ public class BootstrapData implements CommandLineRunner {
         beerRepository.save(b1);
         beerRepository.save(b2);
         beerRepository.save(b3);
+
+        Customer c1 = Customer.builder()
+                .name("Chacha Chaudhary")
+                .email("chacha.chaudhary@email.com")
+                .build();
+
+        customerRepository.save(c1);
 
 //        beerService.createBeer(beerMapper.BeerTOBeerDTO(b1));
 //        beerService.createBeer(beerMapper.BeerTOBeerDTO(b2));

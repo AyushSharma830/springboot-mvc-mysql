@@ -9,11 +9,13 @@ import org.hibernate.annotations.UuidGenerator;
 import org.hibernate.type.SqlTypes;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
 @Entity
-@Data
+@Getter
+@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -42,6 +44,7 @@ public class Customer {
     @UpdateTimestamp
     private LocalDateTime lastUpdatedAt;
 
+    @Builder.Default //but lombok's builder will not pick this default value so we use this annotation
     @OneToMany(mappedBy = "customer")
-    private Set<BeerOrder> beerOrders;
+    private Set<BeerOrder> beerOrders = new HashSet<>(); //a customer can make multiple orders through out his lifetime
 }
