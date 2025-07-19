@@ -21,6 +21,12 @@ public interface BeerRepository extends JpaRepository<Beer, UUID> {
 
     Page<Beer> findAllByNameIsLikeIgnoreCaseAndPrice(String name, Double price, Pageable pageable);
 
+    /**
+     * to test create a select request with for update(pessimistic lock) for this id resource
+     * from workbench and first disable auto commit in workbench and then call this
+     * findById api from postman or scratch file that api will get blocked as the pessimistic lock won't
+     * be released with commit of that txn and when you commit the txn you will see the postman api resolve
+     */
     @Override
     @Lock(LockModeType.PESSIMISTIC_READ)
     @Query("SELECT b FROM Beer b WHERE b.id = :id")
